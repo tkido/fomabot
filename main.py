@@ -11,15 +11,26 @@ print unixtime
 minute = 60
 hour = minute * 60
 day = hour * 24
-week = hour * 7
+week = day * 7
 month = day * 30.436875
 year = day * 365.2425
 
-msg = """3. 希望：
-船が沈み始めたら祈るな、飛び込め。
-小さな損失は人生の現実として甘んじて受けよ。
-大きな利益を待つ間には、何度かそういう経験をすると考えろ。"""
+def per(interval, filename, func):
+	f = open('text\%s.txt' % filename)
+	lines = f.readlines()
+	f.close()
 
-print(msg)
-#tweet(msg)
-selfdm(msg)
+	size = len(lines)
+	tick = unixtime //  interval
+	count = tick % size
+	msg = lines[count].replace('\\n', '\n')
+	"""
+	print('size: %s' % size)
+	print('tick: %s' % tick)
+	print('count: %s' % count)
+	print('msg: %s' % msg)
+	"""
+	func(msg)
+
+per(day, 'survival', selfdm)
+per(day, 'franklin', selfdm)
