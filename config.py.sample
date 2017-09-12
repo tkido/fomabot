@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+USER_ID = '0000000000'
+CK = 'QvtAN8QO6tmOhGwAGkwGhF3cU'                             # Consumer Key
+CS = 'LOh6JcJYAkFoTJgJqZHLUMN9O0mrFWBsoClNCzrWqE2SsCzVkl'    # Consumer Secret
+AT = '0000000000-xe5XV7UWwnKvCLzNVH9kxL3hEVCLuMOxwHnLfqs'    # Access Token
+AS = 'VMJz1z0GIJrkce1Z2Kx4dmbqTitYgwYuUA3IgFsj41cIY'         # Accesss Token Secert
