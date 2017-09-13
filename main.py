@@ -16,12 +16,12 @@ month = day * 30.436875
 year = day * 365.2425
 
 def per(interval, filename, func):
-	f = open('text\%s.txt' % filename)
+	f = open('text/%s.txt' % filename)
 	lines = f.readlines()
 	f.close()
 
 	size = len(lines)
-	tick = unixtime //  interval
+	tick = unixtime // interval
 	count = tick % size
 	msg = lines[count].replace('\\n', '\n')
 	"""
