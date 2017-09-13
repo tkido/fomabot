@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+HOME = '/home/foo/bot'
+
 USER_ID = '0000000000'
 CK = 'QvtAN8QO6tmOhGwAGkwGhF3cU'                             # Consumer Key
 CS = 'LOh6JcJYAkFoTJgJqZHLUMN9O0mrFWBsoClNCzrWqE2SsCzVkl'    # Consumer Secret

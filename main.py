@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os.path
 import time
+from config import HOME
 from twitter import tweet
 from twitter import selfdm
 
@@ -16,7 +18,8 @@ month = day * 30.436875
 year = day * 365.2425
 
 def per(interval, filename, func):
-	f = open('text/%s.txt' % filename)
+	path = os.path.join(HOME, 'text', filename)
+	f = open(path)
 	lines = f.readlines()
 	f.close()
 
@@ -32,5 +35,5 @@ def per(interval, filename, func):
 	"""
 	func(msg)
 
-per(day, 'survival', selfdm)
-per(day, 'franklin', selfdm)
+per(week, 'survival.txt', tweet)
+per(week, 'franklin.txt', tweet)
