@@ -1,44 +1,58 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import datetime
 import os.path
 import sys
 import time
 
 from config import HOME
-from const import minute, hour, day, week, month, year
+import const
 from twitter import tweet, selfdm
 
 mode = sys.argv[1]
 pace = sys.argv[2]
 
 unixtime = int(time.time())
-print unixtime
+#print unixtime
+now = datetime.datetime.now()
+#print now
 
-def per(interval, filename, func):
+def select(rule, interval, size):
+	return rule(interval, size)
+
+def message(rule, interval, filename, func):
 	path = os.path.join(HOME, 'text', filename)
 	f = open(path)
 	lines = f.readlines()
 	f.close()
 
-	size = len(lines)
-	tick = unixtime // interval
-	count = tick % size
-	msg = lines[count].replace('\\n', '\n')
-	"""
-	print('size: %s' % size)
-	print('tick: %s' % tick)
-	print('count: %s' % count)
-	print('msg: %s' % msg)
-	"""
+	index = rule(interval, len(lines))
+	msg = lines[index].replace('\\n', '\n')
 	func(msg)
+
+def fixed(interval, size):
+	index = 0
+	if interval == const.week:
+		index = now.weekday()
+	elif interval == const.month:
+		index = now.month - 1
+	return index
+
+def rotation(interval, size):
+	tick = unixtime // interval
+	index = tick % size
+	return index
 
 func = tweet if sys.argv[1] == 'prod' else selfdm
 
 if pace == "daily":
-	pass
+	message(fixed, const.month, 'honki.txt', selfdm)
+	message(rotation, const.week, 'franklin.txt', selfdm)
+	message(rotation, const.week, 'survival.txt', selfdm)
 elif pace == "weekly":
-	per(week, 'survival.txt', func)
-	per(week, 'franklin.txt', func)
+	message(fixed, const.month, 'honki.txt', func)
+	message(rotation, const.week, 'franklin.txt', func)
+	message(rotation, const.week, 'survival.txt', func)
 elif pace == "monthly":
-	per(month, 'survival.txt', func)
+	pass
